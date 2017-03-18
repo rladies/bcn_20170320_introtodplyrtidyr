@@ -1,0 +1,42 @@
+---
+title: "Domar datos con `dplyr` y `tidyr`"
+author: 'M. Salmon'
+date: '`r Sys.Date()`'
+
+output: 
+  revealjs::revealjs_presentation:
+    css: rladies_revealjs.css
+    highlight: pygments
+    transition: slide
+    
+---
+```{r}
+
+```
+
+
+# Introduction
+
+
+# Announcements
+
+## RUG BCN on Wednesday!
+
+H2O Deep Water, 7:00 PM, Universitat Pompeu Fabra
+
+![corgi+party](https://media.giphy.com/media/kGdQPK7dcLKAE/giphy.gif)
+
+
+## April 24th
+
+Bokeh tutorial by Elena! 7:00PM, here
+
+![dance](https://media.giphy.com/media/l2JhL1AzTxORUTDlC/giphy.gif)
+
+## In May and beyond
+
+* Ania's proposals
+
+* What about YOU?
+
+![](https://media.giphy.com/media/vxVcOH94TV9VC/giphy.gif)
