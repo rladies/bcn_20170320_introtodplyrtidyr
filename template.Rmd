@@ -71,7 +71,7 @@ En tu tabla tal vez hay columnas que no necesitas o quieres anadir algo, por eje
 
 ```r
 # Tal vez no m'interessa algunas columnas
-latestData <- latestData %>% select(- cityURL, - locationURL, - longitude, - latitude)
+latestData <- select(latestData, - cityURL, - locationURL, - longitude, - latitude)
 # Nueva variable con letras minúsculas
 latestData <- mutate(latestData,
 smallCountry = tolower(country))
@@ -223,7 +223,7 @@ meas100ail %>%
 
 ```
 
-# Summarize data
+## Summarize data
 
 ```r
 # si queremos también tener el numero de observaciones
@@ -241,6 +241,79 @@ Eso es magia! Por ejemplo puedes transformar una tabla "wide" en una table "long
 
 ## Transform the table
 
+```r
+load("data/meas100ail.RData")
+# hay lineas repetidas
+meas100ail <- unique(meas100ail)
+# Qué hay aqui dientro?
+
+glimpse(meas100ail)
+
+# de long a wide
+widemeas <- spread(meas100ail, parameter, value)
+# si hago un error
+spread(meas100ail, value, parameter)
+```
+
+## Transform the table
+
+```r
+# de wide a long
+gather(widemeas, parameter, value, co:so2)
+# o si solo quiero lineas con value
+gather(widemeas, parameter, value, co:so2, na.rm = TRUE)
+
+```
+
+## Transform the table
+
+```r
+# date i time separados
+meas100ail <- separate(meas100ail, dateLocal, c("date", "time"), sep = " ")
+# de nuevo quiero que sea date i time
+library("lubridate")
+meas100ail <- mutate(meas100ail, date = as_date(ymd(date)),
+                                    time = hms(time))
+
+# value y unit juntos
+unite(meas100ail, niceValue, c(value, unit), sep = " ")
+```
+
+## Merge tables
+
+Un ejemplo es: tienes una tabla con la edad de individuos i su numero de identificación y otra tabla con el peso de individuos i su numero de identificación. Como creas una unica tabla con estas dos tablas?
+
+## Merge tables
+```r
+load("data/latestData.RData")
+load("data/countries.RData")
+load("data/moreData.RData")
+
+# anadir lineas
+bind_rows(latestData, moreData)
+# si no hay las mismas columnas
+latestData2 <- select(latestData, location, city)
+bind_rows(latestData2, moreData)
+```
+## Merge tables
+
+```r
+# anadir el nombre de los paisos
+glimpse(latestData)
+glimpse(countries)
+
+left_join(latestData, countries, by = c("country" = "code"))
+
+left_join(latestData, countries, by = c("country" = "code")) %>%
+  mutate(country = name) %>%
+select(- name)
+```
+
+## RStudio cheatsheet
+
+You can take it home!
+
+Any further question?
 
 # Announcements
 
